@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.ying.mapper.GoodsMapper">
+    <select id="getGoodsAll" resultType="com.ying.pojo.GoodsManage">
+        select * from goods_manage
+    </select>
+    <select id="getSort" resultType="com.ying.pojo.GoodsManage">
+         select * from goods_manage
+               <if test="select!=null and select!=0">
+                   <if test="select==1">
+                   </if>
+               </if>
+               <if test="select!=null and select!=0">
+                   <if test="select==2">
+                      order by sales DESC
+                   </if>
+               </if>
+               <if test="select!=null and select!=0">
+                   <if test="select==3">
+                       order by shop_price ASC
+                   </if>
+               </if>
+               <if test="select!=null and select!=0">
+                   <if test="select==4">
+                       order by shop_price DESC
+                   </if>
+               </if>
+    </select>
+</mapper>

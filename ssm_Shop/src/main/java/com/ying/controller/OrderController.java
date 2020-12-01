@@ -56,7 +56,7 @@ public class OrderController {
     public Msg plcs(@PathVariable("ids")String ids) {
         //如果ids中包含‘-’就将它删除
         if (ids.contains("-")){
-            List<String> del_ids=new ArrayList<>();
+            List<String> del_ids=new ArrayList();
             String[] str_ids = ids.split("-");
             //将id组装成集合
             for (String str : str_ids) {

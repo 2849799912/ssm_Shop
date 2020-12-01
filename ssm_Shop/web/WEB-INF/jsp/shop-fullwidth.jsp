@@ -1,6 +1,7 @@
-﻿<!doctype html>
-<html class="no-js" lang="en">
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -29,6 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins/nice-select.min.css">
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/layui/css/layui.css" media="all">
 
     <!-- Vendor & Plugins CSS (Please remove the comment from below vendor.min.css & plugins.min.css for better website load performance and remove css files from the above) -->
 
@@ -39,7 +41,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
 </head>
-
 <body>
 
     <div class="shop-wrapper">
@@ -56,7 +57,7 @@
                             <h3 class="title-3">商店</h3>
                             <ul>
                                 <li><a href="index.html">首页</a></li>
-                                <li>商城</li>
+                                <li>商铺</li>
                             </ul>
                         </div>
                     </div>
@@ -77,15 +78,13 @@
                                 <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"><i class="fa fa-th-list"></i></button>
                             </div>
                             <div class="shop-select">
-                                <form class="d-flex flex-column w-100" action="#">
+                                <form  class="d-flex flex-column w-100" action="/goods/shop-sort.do" id="myForm">
                                     <div class="form-group">
-                                        <select class="form-control nice-select w-100">
-                                            <option selected value="1">按字母顺序,所有</option>
-                                            <option value="2">按人气排序</option>
-                                            <option value="3">排序新奇</option>
-                                            <option value="4">按价格排序:由低到高</option>
-                                            <option value="5">按价格排序:从高到低</option>
-                                           
+                                        <select class="form-control nice-select w-100" onchange="submitForm()" name="select">
+                                           <option value="1" >按顺序排序</option>
+                                            <option value="2" >按人气排序</option>
+                                            <option value="3" >按价格排序:由低到高</option>
+                                            <option value="4" >按价格排序:从高到低</option>
                                         </select>
                                     </div>
                                 </form>
@@ -93,13 +92,15 @@
                         </div>
                         <!--shop toolbar end-->
                         <!-- Shop Wrapper Start -->
-                        <div class="row shop_wrapper grid_4">
+                        <div class="row shop_wrapper grid_4" id="shop_wrapper" id="shop-wrapper">
+                            <!--循环获取所有商品-->
+                         <c:forEach items="${pageInfo.list}" var="i">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
                                 <div class="single-product position-relative">
                                     <div class="product-image">
                                         <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/1.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/2.jpg" alt="" class="product-image-2 position-absolute w-100">
+                                            <img src="${pageContext.request.contextPath}${i.picture}" alt="" class="product-image-1 w-100">
+                                            <img src="${pageContext.request.contextPath}${i.describe}" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
                                     </div>
                                     <div class="product-content">
@@ -110,12 +111,12 @@
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
+                                        <div class="product-title" id="shop-name">
+                                            <h4 class="title-2"> <a href="product-details.html" class="shop-name">${i.goodsName}</a></h4>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
+                                            <span class="regular-price " id="market-price">${i.shopPrice}</span>
+                                            <span class="old-price"><del id="shop-price">${i.marketPrice}</del></span>
                                         </div>
                                     </div>
                                     <div class="add-action d-flex position-absolute">
@@ -141,11 +142,11 @@
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
+                                            <h4 class="title-2"> <a href="product-details.html" class="shop-name">${i.goodsName}</a></h4>
                                         </div>
                                         <div class="price-box">
-                                            <span class="regular-price ">$80.00</span>
-                                            <span class="old-price"><del>$90.00</del></span>
+                                            <span class="regular-price ">${i.marketPrice}</span>
+                                            <span class="old-price"><del>${i.shopPrice}</del></span>
                                         </div>
                                         <div class="add-action-listview d-flex">
                                             <a href="cart.html" title="Add To cart">
@@ -162,835 +163,52 @@
                                             </a>
                                         </div>
                                         <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+                                      又大又香的苹果
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/3.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$70.00</span>
-                                            <span class="old-price"><del>$80.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$70.00</span>
-                                            <span class="old-price"><del>$80.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/6.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>$70.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>$70.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/7.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/8.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$50.00</span>
-                                            <span class="old-price"><del>$60.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$50.00</span>
-                                            <span class="old-price"><del>$60.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/9.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/10.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$30.00</span>
-                                            <span class="old-price"><del>$50.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$30.00</span>
-                                            <span class="old-price"><del>$50.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$50.00</span>
-                                            <span class="old-price"><del>$55.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$50.00</span>
-                                            <span class="old-price"><del>$55.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/8.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$40.00</span>
-                                            <span class="old-price"><del>$44.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$40.00</span>
-                                            <span class="old-price"><del>$44.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/2.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/4.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>$77.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$60.00</span>
-                                            <span class="old-price"><del>$77.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$44.99</span>
-                                            <span class="old-price"><del>$55.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$44.99</span>
-                                            <span class="old-price"><del>$55.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/6.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/8.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$70.00</span>
-                                            <span class="old-price"><del>$88.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$70.00</span>
-                                            <span class="old-price"><del>$88.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/9.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/2.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$10.00</span>
-                                            <span class="old-price"><del>$20.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$10.00</span>
-                                            <span class="old-price"><del>$20.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-custom product-area">
-                                <div class="single-product position-relative">
-                                    <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/5.jpg" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}/assets/images/product/1.jpg" alt="" class="product-image-2 position-absolute w-100">
-                                        </a>
-                                    </div>
-                                    <div class="product-content">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$40.00</span>
-                                            <span class="old-price"><del>$45.00</del></span>
-                                        </div>
-                                    </div>
-                                    <div class="add-action d-flex position-absolute">
-                                        <a href="cart.html" title="Add To cart">
-                                            <i class="ion-bag"></i>
-                                        </a>
-                                        <a href="compare.html" title="Compare">
-                                            <i class="ion-ios-loop-strong"></i>
-                                        </a>
-                                        <a href="wishlist.html" title="Add To Wishlist">
-                                            <i class="ion-ios-heart-outline"></i>
-                                        </a>
-                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                            <i class="ion-eye"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-content-listview">
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html">产品假名字</a></h4>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="regular-price ">$40.00</span>
-                                            <span class="old-price"><del>$44.00</del></span>
-                                        </div>
-                                        <div class="add-action-listview d-flex">
-                                            <a href="cart.html" title="Add To cart">
-                                                <i class="ion-bag"></i>
-                                            </a>
-                                            <a href="compare.html" title="Compare">
-                                                <i class="ion-ios-loop-strong"></i>
-                                            </a>
-                                            <a href="wishlist.html" title="Add To Wishlist">
-                                                <i class="ion-ios-heart-outline"></i>
-                                            </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
-                                                <i class="ion-eye"></i>
-                                            </a>
-                                        </div>
-                                        <p class="desc-content">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                         </c:forEach>
+                            <!--循环获取所有商品结束-->
                         </div>
                         <!-- Shop Wrapper End -->
                         <!-- Bottom Toolbar Start -->
                         <div class="row">
                             <div class="col-sm-12 col-custom">
-                                <div class="toolbar-bottom mt-30">
+                                <div class="toolbar-bottom mt-30" >
                                     <nav class="pagination pagination-wrap mb-10 mb-sm-0">
-                                        <ul class="pagination">
+                                        <ul class="pagination ">
                                             <li class="disabled prev">
-                                                <i class="ion-ios-arrow-thin-left"></i>
+                                             <a href="${pageContext.request.contextPath}${path}?pn=${pageInfo.pageNum-1}&select=${select}" >
+                                                 <button type="button" class="layui-btn layui-btn-primary">
+                                                 <i class="layui-icon">&#xe65a;</i>
+                                             </button>
+                                             </a>
                                             </li>
-                                            <li class="active"><a>1</a></li>
                                             <li>
-                                                <a href="#">2</a>
+                                                <c:forEach items="${pageInfo.navigatepageNums}" var="o">
+                                                    <a href="${pageContext.request.contextPath}${path}?pn=${o}&select=${select}">
+                                                        <button type="button" class="layui-btn layui-btn-primary">
+                                                            ${o}&nbsp;&nbsp;&nbsp;
+                                                    </button></a>
+                                                </c:forEach>
                                             </li>
                                             <li class="next">
-                                                <a href="#" title="Next >>"><i class="ion-ios-arrow-thin-right"></i></a>
+                                                <a href="${pageContext.request.contextPath}${path}?pn=${pageInfo.pageNum+1}&select=${select}" title="Next >>">
+                                                    <button type="button" class="layui-btn layui-btn-primary">
+                                                    <i class="layui-icon">&#xe65b;</i>
+                                                    </button></a>
+                                            </li>
+                                            <li>
+                                                <form action="${pageContext.request.contextPath}${path}">
+                                                    第:&nbsp;<input type="text" name="pn"  autocomplete="off" style="width:80px;height:35px ">&nbsp;页&nbsp;&nbsp;
+                                                      <input type="hidden" value="${select}" name="select">
+                                                     <input type="submit" value="确定"style="width:50px;height:35px ">
+                                                </form>
                                             </li>
                                         </ul>
                                     </nav>
-                                    <p class="desc-content text-center text-sm-right">显示34个结果中的1 - 12个谁</p>
+                                    <p class="desc-content text-center text-sm-right">当前第:${pageInfo.pageNum}页&nbsp;&nbsp;共:${pageInfo.pages}页</p>
                                 </div>
                             </div>
                         </div>
@@ -1032,10 +250,21 @@
     <script src="${pageContext.request.contextPath}/assets/js/plugins/jquery-ui.min.js"></script>
     <!-- jquery magnific popup js -->
     <script src="${pageContext.request.contextPath}/assets/js/plugins/jquery.magnific-popup.min.js"></script>
-
+     <!--导入jquery-->
+        <script src="${pageContext.request.contextPath}/bgstatics/js/jquery.js"></script>
+        <!--导入jquery-->
+        <script src="${pageContext.request.contextPath}/bgstatics/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bgstatics/js/jquery-1.12.4.min.js"></script>
     <!-- Main JS -->
     <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 
-</body>
+        <script src="${pageContext.request.contextPath}/bgstatics/layui/layui.js" charset="utf-8"></script>
 
+</body>
+    <script type="text/javascript">
+   function submitForm() {
+           var form=document.getElementById("myForm")
+         form.submit();
+   }
+</script>
 </html>
