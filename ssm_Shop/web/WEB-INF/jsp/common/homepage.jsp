@@ -72,7 +72,7 @@
                                                 <li><a href=""><b><h5>商品</h5></b></a></li>
                                                 <li><a href="${pageContext.request.contextPath}/skip/shop-list-left.html">商店列表左侧侧边栏</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/skip/shop-list-right.html">商店列表右侧侧边栏</a></li>
-                                                <li><a href="${pageContext.request.contextPath}/skip/shop-fullwidth.html">商店全宽</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/goods/shop-fullwidth.do">商店全宽</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-colum">
@@ -240,7 +240,7 @@
                                                 <li><a href=""><b><h5>商品</h5></b></a></li>
                                                 <li><a href="${pageContext.request.contextPath}/skip/shop-list-left.html">商店列表左侧侧边栏</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/skip/shop-list-right.html">商店列表右侧侧边栏</a></li>
-                                                <li><a href="${pageContext.request.contextPath}/skip/shop-fullwidth.html">商店全宽</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/goods/shop-fullwidth.do">商店全宽</a></li>
                                             </ul>
                                         </div>
                                         <div class="menu-colum">
