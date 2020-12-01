@@ -6,7 +6,7 @@ package com.ying.controller;
  */
 public class Tws {
     public static void main(String[] args) {
-
+        System.out.println(3222);
         System.out.println(2);
     }
 }
