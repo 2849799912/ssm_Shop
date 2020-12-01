@@ -7,7 +7,7 @@
     <groupId>com.ying.maven</groupId>
     <artifactId>ssm_Shop</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>war</packaging>
     <!--坐标-->
 <dependencies>
     <!--引入pageHelper分页插件 -->
