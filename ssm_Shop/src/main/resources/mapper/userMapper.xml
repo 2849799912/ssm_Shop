@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ying.mapper.UserMapper">
+    <!--后台：用户登录-->
+    <select id="login" parameterType="string" resultType="com.ying.pojo.User">
+        select * from user where userName=#{userName}
+    </select>
+
+    <!--后台：修改用户信息-->
+    <update id="updUser" parameterType="com.ying.pojo.User">
+        update user
+       <set>
+           <if test="UName!=null and UName!=''">
+               uName=#{UName},
+           </if>
+           <if test="telephone!=null and telephone!=''">
+               telephone =#{telephone},
+           </if>
+           <if test="newpassword!=null and newpassword!=''">
+               password =#{newpassword},
+           </if>
+        <if test="buddha!=null and buddha!=''">
+            buddha=#{buddha}
+        </if>
+       </set>
+        <where>
+            <if test="password!=null and password!=''">
+                uid=#{uid} and password=#{password}
+            </if>
+        </where>
+    </update>
+
+    <!--查询旧密码-->
+    <select id="getpwd" resultType="user">
+          select * from user
+          <where>
+            <if test="uid!=null and uid!=''">
+                uid=#{uid}
+            </if>
+            <if test="password!=null and password!=''">
+              and  password=#{password}
+            </if>
+          </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ying.mapper.OrderMapper">
+    <!--查询所有、根据订单号、状态查找数据-->
+    <select id="getOrderAll" resultType="com.ying.pojo.Orders">
+           SELECT * FROM `orders`
+           <where>
+               manage_del=1
+               <if test="state!=null and state!=''">
+                  and state=#{state}
+               </if>
+               <if test="state==0">
+                   and  state=#{state}
+               </if>
+               <if test="oid!=null and oid!=''">
+                   and oid like concat('%',#{oid},'%')
+               </if>
+           </where>
+    </select>
+
+    <!--批量后台删除订单-->
+    <delete id="batchDelete" parameterType="list">
+        UPDATE orders SET manage_del=0
+        <where>
+        <foreach collection="list" item="oid" separator="or">
+            oid=#{oid}
+        </foreach>
+        </where>
+    </delete>
+
+    <!--查找订单详情数据-->
+    <select id="getLineitem" resultMap="lineitem">
+    SELECT u.`uName`,o.`name`,o.`telephone`,o.`address`,o.`express`,o.`oid`,o.ordertime,
+    i.`quantity`,g.shop_price,i.total i_total,o.`total` o_total,g.`goods_name`,g.`picture`
+    FROM `orders` o,`user` u,`orderitem` i,`goods_manage` g
+    WHERE o.oid=#{oid} AND o.`uid`=u.`uid` AND i.`oid`=o.`oid` AND i.`gid`=g.`gid`
+    </select>
+    <resultMap id="lineitem" type="com.ying.pojo.Lineitem">
+        <!--买家昵称-->
+        <result property="uName" column="uName"/>
+        <!--收货人-->
+        <result property="name" column="name"/>
+        <!--收货人电话-->
+        <result property="telephone" column="telephone"/>
+        <!--收货地址-->
+        <result property="address" column="address"/>
+        <!--配送方式-->
+        <result property="express" column="express"/>
+        <!--订单号-->
+        <result property="oid" column="oid"/>
+        <!--下单时间-->
+        <result property="ordertime" column="ordertime"/>
+        <!--订单表：总计-->
+        <result property="o_total" column="o_total"/>
+        <!--商品表：-->
+        <collection property="goodsManageLis" ofType="com.ying.pojo.GoodsManage">
+            <!--图片-->
+            <result property="picture" column="picture"/>
+            <!--标题-->
+            <result property="goodsName" column="goods_name"/>
+            <!--单价-->
+            <result property="shopPrice" column="shop_price"/>
+        </collection>
+        <!--订单项表-->
+        <collection property="orderitemList" ofType="com.ying.pojo.Orderitem">
+            <!--数量-->
+            <result property="quantity" column="quantity"/>
+            <!--小计-->
+            <result property="total" column="i_total"/>
+        </collection>
+    </resultMap>
+</mapper>
