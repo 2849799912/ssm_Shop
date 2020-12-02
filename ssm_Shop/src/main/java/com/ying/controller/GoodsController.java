@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -48,4 +49,5 @@ public class GoodsController {
         model.addAttribute("select",select);
         return "jsp/shop-fullwidth";
     }
+
 }

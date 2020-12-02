@@ -18,4 +18,5 @@ public interface GoodsMapper {
      * 根据人气，价格排序
      * */
     List<GoodsManage> getSort(@Param("select") Integer select);
+
 }

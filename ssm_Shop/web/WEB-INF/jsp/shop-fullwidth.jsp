@@ -100,7 +100,6 @@
                                     <div class="product-image">
                                         <a class="d-block" href="product-details.html">
                                             <img src="${pageContext.request.contextPath}${i.picture}" alt="" class="product-image-1 w-100">
-                                            <img src="${pageContext.request.contextPath}${i.describe}" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
                                     </div>
                                     <div class="product-content">
@@ -158,12 +157,11 @@
                                             <a href="wishlist.html" title="Add To Wishlist">
                                                 <i class="ion-ios-heart-outline"></i>
                                             </a>
-                                            <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
+                                        <a href="#exampleModalCenter" data-toggle="modal" title="Quick View">
                                                 <i class="ion-eye"></i>
                                             </a>
                                         </div>
                                         <p class="desc-content">
-                                      又大又香的苹果
                                         </p>
                                     </div>
                                 </div>
