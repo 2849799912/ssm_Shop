@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.ying.mapper.SkipMapper">
+    <!--成交金额-->
+    <select id="getShing_amount" resultType="double">
+        SELECT SUM(total) FROM orders WHERE state>=1
+    </select>
+
+    <!--订单数-->
+    <select id="getOrder_num" resultType="_int">
+        SELECT COUNT(state) FROM orders WHERE state>=1 AND manage_del=1
+    </select>
+
+    <!--待处理-->
+    <select id="getDispose" resultType="_int">
+        SELECT COUNT(state) FROM orders WHERE state=1 OR state=5
+    </select>
+
+    <!--退款申请-->
+    <select id="getRefund" resultType="_int">
+        SELECT COUNT(state) FROM orders WHERE state=5
+    </select>
+
+    <!--昨日待发货订单-->
+    <select id="getYesterdayDidNotDelivery" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE DAY(ordertime)=(DAY(NOW())-1) AND state=1
+    </select>
+
+    <!--昨日成交订单-->
+    <select id="getYesterdayToClinchADeal" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE DAY(ordertime)=(DAY(NOW())-1) AND state>=1
+    </select>
+
+    <!--今天待发货订单-->
+    <select id="getTodayToSendCargo" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE DAY(ordertime)=(DAY(NOW())) AND state=1
+    </select>
+
+    <!--今天成交订单-->
+    <select id="getClinchADealToday" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE DAY(ordertime)=(DAY(NOW())) AND state>=1
+    </select>
+
+    <!--本周待发货订单-->
+    <select id="getAtThisWeek" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE WEEK(ordertime)=(WEEK(NOW())) AND state=1
+    </select>
+
+    <!--本周成交订单-->
+    <select id="getClinchADealThisWeek" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE WEEK(ordertime)=(WEEK(NOW())) AND state>=1
+    </select>
+
+    <!--本月待发货订单-->
+    <select id="getAtThisMonth" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE MONTH(ordertime)=(MONTH(NOW())) AND state=1
+    </select>
+
+    <!--本月成交订单-->
+    <select id="getClinchADealThisMonth" resultType="_int">
+        SELECT COUNT(*) FROM `orders` WHERE MONTH(ordertime)=(MONTH(NOW())) AND state>=1
+    </select>
+
+    <!--订单总数-->
+    <select id="getSum" resultType="_int">
+        SELECT COUNT(state) FROM orders WHERE state>=1
+    </select>
+
+    <!--订单待发货总数-->
+    <select id="getTheTotalMomentum" resultType="_int">
+        SELECT COUNT(state) FROM orders WHERE state=1
+    </select>
+</mapper>

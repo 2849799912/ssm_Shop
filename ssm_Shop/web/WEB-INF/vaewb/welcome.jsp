@@ -7,14 +7,12 @@
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-        <!--<link rel="stylesheet" href="./css/font.css">-->
-        <link rel="stylesheet" href="../../bgstatics/css/index.css">
-        <link rel="stylesheet" href="../../bgstatics/css/iconfont.css">
-        <script src="../../bgstatics/lib/layui/layui.js" charset="utf-8"></script>
-<%--        <script type="text/javascript" src="../../bgstatics/js"></script>--%>
-        <script src="../../bgstatics/js/jquery.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/index.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/iconfont.css">
+        <script src="${pageContext.request.contextPath}/bgstatics/lib/layui/layui.js" charset="utf-8"></script>
+        <script src="${pageContext.request.contextPath}/bgstatics/js/jquery.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/bgstatics/js/jquery.min.js"></script>
-        <script src="../../bgstatics/js/survey.js"></script>
+        <script src="${pageContext.request.contextPath}/bgstatics/js/survey.js"></script>
         <style>
             #FontScroll{
                 width: 100%;
@@ -59,7 +57,7 @@
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>成交金额</h3>
                                         <p>
-                                            <cite>6843.50元</cite></p>
+                                            <cite>${amount}元</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
@@ -73,7 +71,7 @@
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>订单</h3>
                                         <p>
-                                            <cite>5689笔</cite></p>
+                                            <cite>${order_num}笔</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
@@ -87,14 +85,14 @@
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>待处理</h3>
                                         <p>
-                                            <cite>10条</cite></p>
+                                            <cite>${dispose}条</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6 ">
                                     <a href="javascript:;" class="x-admin-backlog-body">
                                         <h3>退款申请</h3>
                                         <p>
-                                            <cite>0条</cite></p>
+                                            <cite>${refund}条</cite></p>
                                     </a>
                                 </li>
                             </ul>
@@ -115,51 +113,33 @@
                                     <th>统计</th>
                                     <th>待发货订单</th>
                                     <th>成交订单</th>
-                                    <th>产品库</th>
-                                    <th>用户</th>
-                                    <th>管理员</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr class="text-c">
                                     <td>总数</td>
-                                    <td>92</td>
-                                    <td>9</td>
-                                    <td>0</td>
-                                    <td>8</td>
-                                    <td>20</td>
+                                    <td>${ttm}</td>
+                                    <td>${sum}</td>
                                 </tr>
                                 <tr class="text-c">
                                     <td>今日</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>${ttsc}</td>
+                                    <td>${cadt}</td>
                                 </tr>
                                 <tr class="text-c">
                                     <td>昨日</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>${ydd}</td>
+                                    <td>${ytcad}</td>
                                 </tr>
                                 <tr class="text-c">
                                     <td>本周</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>${atw}</td>
+                                    <td>${cadtw}</td>
                                 </tr>
                                 <tr class="text-c">
                                     <td>本月</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>${atm}</td>
+                                    <td>${cadtm}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -169,7 +149,6 @@
                 <div class="layui-col-sm6 layui-col-md3">
                     <div class="layui-card">
                         <div class="layui-card-header">数据统计
-
                         </div>
                         <div class="layui-card-body ">
 
@@ -200,22 +179,19 @@
 
                                 <div class="myscroll" id="FontScroll">
                                     <ul class="list">
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">1.华为P30系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">2.小米平板</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">3.华为P40系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">4.大疆无人机</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">5.联想（ThinkPad ）轻薄系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">6.七匹狼纯棉时尚休闲条纹翻领POLO衫T恤</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">7.联想（ThinkPad ）轻薄系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">8.大疆无人机</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">9.华为P40系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">10.小米平板</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">11.华为P30系列</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">12.七匹狼纯棉时尚休闲条纹翻领POLO衫T恤</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">13.大疆无人机</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">14.七匹狼纯棉时尚休闲条纹翻领POLO衫T恤</a></li>
-                                        <li><i class="iconfont">&#xe622;</i><a href="#">15.联想（ThinkPad ）轻薄系列</a></li>
-
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">1.田园清蔬，让孩子爱上吃蔬菜。</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">2.美味果蔬，你爱我爱大家爱!</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">3.酥脆的节奏，健康的主流</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">4.田园清蔬，吃得舒服。</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">5.新鲜的果蔬，如薯片般的感觉。</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">6.清新田园美，一果一蔬脆。</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">7.遇见清新，蔬果好心情</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">8.苹果吃得多，药就吃得少。</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">9.生在天涯海角，甜在你我嘴角</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">10.正宗广东四会沙糖桔</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">11.小米椒新鲜蔬菜</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">12.云南蒙自高山甜枇杷</a></li>
+                                        <li><i class="iconfont">&#xe622;</i><a href="#">13.农家现挖蔬菜水果萝卜 </a></li>
                                     </ul>
                                 </div>
 
@@ -226,79 +202,11 @@
 
                 <div class="layui-col-md12">
                     <div class="layui-card">
-                        <div class="layui-card-header">系统信息</div>
-                        <div class="layui-card-body ">
-
-                            <table class="layui-table">
-                                <thead>
-                                <tr>
-                                    <th colspan="4" scope="col">服务器信息</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>服务器计算机名</th>
-                                    <td><span id="lbServerName">http://127.0.0.1/</span></td>
-
-                                </tr>
-                                <tr>
-                                    <td>服务器IP地址</td>
-                                    <td>192.168.1.1</td>
-                                </tr>
-                                <tr>
-                                    <td>服务器域名</td>
-                                    <td>www.xxx.net</td>
-
-                                </tr>
-                                <tr>
-                                    <td>服务器端口 </td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>服务器IIS版本 </td>
-                                    <td>Microsoft-IIS/6.0</td>
-
-                                </tr>
-                                <tr>
-                                    <td>本文件所在文件夹 </td>
-                                    <td>D:\WebSite\</td>
-                                </tr>
-                                <tr>
-                                    <td>服务器操作系统 </td>
-                                    <td>Microsoft Windows NT 5.2.3790 Service Pack 2</td>
-
-                                </tr>
-                                <tr>
-                                    <td>系统所在文件夹 </td>
-                                    <td>C:\WINDOWS\system32</td>
-                                </tr>
-                                <tr>
-                                    <td>服务器脚本超时时间 </td>
-                                    <td>30000秒</td>
-
-                                </tr>
-                                <tr>
-                                    <td>服务器的语言种类 </td>
-                                    <td>Chinese (People's Republic of China)</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="layui-col-md12">
-                    <div class="layui-card">
                         <div class="layui-card-body ">
                             <p style="text-align: center;"> Copyright ©2020  All Rights Reserved.</p>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
         </div>
@@ -307,14 +215,30 @@
     <script src="${pageContext.request.contextPath}/bgstatics/js/echarts.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            //数据统计
+        /*    $.ajax({
+                url:"",
+                type:"get",
+                dataType:"json",
+                success:function (res) {
+
+                }
+            })*/
+
+
+
+
+
+
+            /*控制广告滚动条*/
             $('.myscroll').myScroll({
                 speed: 60, //数值越大，速度越慢
                 rowHeight: 38 //li的高度
             });
-
         });
 
-        layui.use('layer', function(){
+        /*便签*/
+       /* layui.use('layer', function(){
             var layer = layui.layer;
             var remember = '';
             $(document).ready(function(){
@@ -355,7 +279,8 @@
                 })
             });
         });
-
+*/
+        /*当前时间*/
         function getTime(){
             var myDate = new Date();
             var myYear = myDate.getFullYear(); //获取完整的年份(4位,1970-????)

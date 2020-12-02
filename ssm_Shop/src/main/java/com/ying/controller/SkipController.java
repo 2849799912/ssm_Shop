@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.ying.pojo.Orders;
 import com.ying.pojo.User;
 import com.ying.service.OrderServiceImpl;
+import com.ying.service.SkipServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/skip")
 public class SkipController {
-
+    @Autowired
+    SkipServiceImpl skipService;
     /*---------------------------前台---------------------------------------------*/
    /*跳转到前台首页:index.jsp*/
     @RequestMapping("index.html")
@@ -113,7 +115,6 @@ public class SkipController {
     public  String index(HttpServletRequest request){
          //获取用户登录信息
         User login = (User) request.getSession().getAttribute("bgUser");
-        System.out.println("进入判断");
         //如果未登录，跳转到logn进行登录操作
         if (null==login){
             return "redirect:/skip/login";
@@ -123,7 +124,49 @@ public class SkipController {
 
     /*跳转到后台首页：我的桌面*/
     @RequestMapping("/welcome")
-    public  String welcome(){
+    public  String welcome(Model model){
+        //成交金额
+        Double amount=skipService.getShing_amount();
+        //订单数
+        int order_num=skipService.getOrder_num();
+        //待处理
+        int dispose=skipService.getDispose();
+        //退款申请
+        int refund =skipService.getRefund();
+        //昨日待发货订单
+        int ydd=skipService.getYesterdayDidNotDelivery();
+        //昨日成交订单
+        int ytcad=skipService.getYesterdayToClinchADeal();
+        //今天待发货订单
+        int ttsc=skipService.getTodayToSendCargo();
+        //今天成交订单
+        int cadt=skipService.getClinchADealToday();
+        //本周待发货订单
+        int atw=skipService.getAtThisWeek();
+        //本周成交订单
+        int cadtw=skipService.getClinchADealThisWeek();
+        //本月待发货订单
+        int atm=skipService.getAtThisMonth();
+        //本月成交订单
+        int cadtm=skipService.getClinchADealThisMonth();
+        //总数
+        int sum=skipService.getSum();
+        //总数待发货
+        int ttm=skipService.getTheTotalMomentum();
+        model.addAttribute("amount",amount);
+        model.addAttribute("order_num",order_num);
+        model.addAttribute("dispose",dispose);
+        model.addAttribute("refund",refund);
+        model.addAttribute("ydd",ydd);
+        model.addAttribute("ytcad",ytcad);
+        model.addAttribute("ttsc",ttsc);
+        model.addAttribute("cadt",cadt);
+        model.addAttribute("atw",atw);
+        model.addAttribute("cadtw",cadtw);
+        model.addAttribute("atm",atm);
+        model.addAttribute("cadtm",cadtm);
+        model.addAttribute("sum",sum);
+        model.addAttribute("ttm",ttm);
         return "vaewb/welcome";
     }
 

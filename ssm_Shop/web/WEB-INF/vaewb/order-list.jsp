@@ -76,7 +76,6 @@
                     {{#if(d.state === 0){}}
                     <span>待付款</span>
                     {{#}}}
-
                     {{#if(d.state === 1){}}
                     <%--{{d.state}} 表格中的那么信息--%>
                     <button type="button" data-type="notfa" name={{d.oid}} class="weifa layui-btn  layui-btn-danger">
@@ -113,7 +112,7 @@
                     </button>
                 </div>
                 <%--批量删除结束--%>
-                <%--查看弹出层折叠面板开始--%>
+                <%--查看订单详情弹出层折叠面板开始--%>
                 <script type="text/html" id="findtc">
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                         <legend>买家信息：</legend>
@@ -239,7 +238,6 @@
                             var fahuo = {
                                 notfa: function (index) {
                                     var oid = this.name;//获取订单id
-
                                     //触发弹出页面层
                                     layer.open({
                                         title: "发货信息",
@@ -336,7 +334,6 @@
                                                 var dateee = new Date(date).toJSON();
                                                 return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
                                             }
-
                                             var td1 = {};
                                             var td2 = {};
                                             var td3 = {};
@@ -345,7 +342,6 @@
                                                 td1[index] = " <td style=\"width: 400px;\">" +
                                                     "<img style='width:60px;height: 60px' src='${pageContext.request.contextPath}" + gml.picture + "' alt='宝贝'>" +
                                                     "<span>" + gml.goodsName + "</span></td>";
-
                                                 td2[index] = "<td>" + gml.shopPrice + "</td>";//单价
                                             })
                                             $(elm.orderitemList).each(function (index, oil) {
@@ -380,10 +376,8 @@
                                     layer.msg('编辑操作');
                                 }
                             });
-
                         });
                     }
-
                 </script>
             </div>
         </div>
@@ -394,18 +388,15 @@
     layui.use(['laydate', 'form'],
         function () {
             var laydate = layui.laydate;
-
             //执行一个laydate实例
             laydate.render({
                 elem: '#start' //指定元素
             });
-
             //执行一个laydate实例
             laydate.render({
                 elem: '#end' //指定元素
             });
         });
-
 
     /*用户-删除*/
     function member_del(obj, id) {
@@ -419,11 +410,8 @@
                 });
             });
     }
-
     function delAll(argument) {
-
         var data = tableCheck.getData();
-
         layer.confirm('确认要删除吗？' + data,
             function (index) {
                 //捉到所有被选中的，发异步进行删除
@@ -433,8 +421,6 @@
                 $(".layui-form-checked").not('.header').parents('tr').remove();
             });
     }
-
-
 </script>
 <%--表格开始--%>
 </html>
