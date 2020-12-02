@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -160,7 +161,6 @@
 </footer>
 <!-- Footer Area End Here -->
 
-
 <!-- Modal Area Start Here -->
 <div class="modal fade obrien-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -168,23 +168,26 @@
             <button type="button" class="close close-button" data-dismiss="modal" aria-label="Close">
                 <span class="close-icon" aria-hidden="true">x</span>
             </button>
+
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row">
+                         <form  class="d-flex flex-column w-100" action="/cart/cart.do?id=">
+                        <div class="row">
                         <div class="col-lg-6 col-md-6 text-center">
-                            <div class="product-image">
-                                <img src="/assets/images/product/1.jpg" alt="Product Image">
+                            <div class="product-image" id="shop-picture">
+                                <img src="${pageContext.request.contextPath}/upload/2.jpg" alt="">
+
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="modal-product">
                                 <div class="product-content">
                                     <div class="product-title">
-                                        <h4 class="title">产品假名字</h4>
+                                        <h4 class="title" id="shop-name" name="shop_name"></h4>
                                     </div>
                                     <div class="price-box">
-                                        <span class="regular-price ">$80.00</span>
-                                        <span class="old-price"><del>$90.00</del></span>
+                                        <span class="regular-price" id="shop-marketPrice" name="shop_marketPrice"></span>
+                                        <span class="old-price"><del id="shop-shopPrice"></del></span>
                                     </div>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
@@ -192,10 +195,10 @@
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
-                                        <span>1 评论</span>
+                                        <span>评论</span>
                                     </div>
                                     <p class="desc-content">我们义愤填膺地谴责，厌恶那些被一时的快乐的魅力所迷惑和堕落，被欲望所蒙蔽，无法预见必然随之而来的痛苦和麻烦的人;都怪贝尔…</p>
-                                    <form class="d-flex flex-column w-100" action="#">
+                              <%--      <form class="d-flex flex-column w-100" action="#">
                                         <div class="form-group">
                                             <select class="form-control nice-select w-100">
                                                 <option>S</option>
@@ -205,33 +208,42 @@
                                                 <option>XXL</option>
                                             </select>
                                         </div>
-                                    </form>
+                                    </form>--%>
+                                    <br><br><br>
+                                    <div>
+                                        <input name="chopper" checked  value="1" type="radio" id="chopper" class="layui-col-md-offset2">1斤
+                                        <input name="chopper" type="radio" value="2"  id="chopper2" class="layui-col-md-offset2">3斤
+                                        <input name="chopper" type="radio" value="3"  id="chopper3" class="layui-col-md-offset2">5斤
+                                    </div>
                                     <div class="quantity-with_btn">
                                         <div class="quantity">
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="0" type="text">
+                                                <input class="cart-plus-minus-box" id="cart" value="1" type="text">
                                                 <div class="dec qtybutton">-</div>
                                                 <div class="inc qtybutton">+</div>
                                             </div>
                                         </div>
                                         <div class="add-to_cart">
-                                            <a class="btn obrien-button primary-btn" href="cart.jsp">加入购物车</a>
+                                            <input class="btn obrien-button primary-btn" type="submit" value="购物车"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal Area End Here -->
-
 <!-- Scroll to Top Start -->
 <a class="scroll-to-top" href="#">
     <i class="ion-chevron-up"></i>
 </a>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>

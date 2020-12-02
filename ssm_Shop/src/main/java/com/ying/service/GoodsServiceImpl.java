@@ -27,4 +27,5 @@ public class GoodsServiceImpl {
     public List<GoodsManage> getSort(Integer select) {
         return goodsMapper.getSort(select);
     }
+
 }
