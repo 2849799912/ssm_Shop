@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-　
 <%@ page language="java" import="java.util.*,java.text.*" contentType="text/html; charset=UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 
@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/index.css">
     <script type="text/javascript" src="${pageContext.request.contextPath}/bgstatics/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/bgstatics/lib/layui/layui.js" charset="utf-8"></script>
-    <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/bgstatics/js"></script>--%>
-    <link rel="stylesheet" href="../../bgstatics/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/layui/css/layui.css" media="all">
 </head>
 
 <body>
@@ -61,7 +60,17 @@
                     </form>
                     <%--条件搜索结束--%>
                 </div>
-
+                <%--发货弹窗开始--%>
+                <script type="text/html" id="fahuo"><br>
+                <span style="font-size: 20px">   请选择发货方式： <select style="font-size: 20px" id="Delivery">
+                     <option value="天天快递">天天快递</option>
+                     <option value="顺丰物流">顺丰物流</option>
+                     <option value="中通快递">中通快递</option>
+                     <option value="宅急送">宅急送</option>
+                     <option value="邮政">邮政</option>
+                 </select></span>
+                </script>
+                <%--发货弹窗结束--%>
                 <%--判断订单状态开始--%>
                 <script type="text/html" id="orderState">
                     {{#if(d.state === 0){}}
@@ -69,7 +78,10 @@
                     {{#}}}
 
                     {{#if(d.state === 1){}}
-                    <button type="button" class="layui-btn  layui-btn-danger">未发货</button>
+                    <%--{{d.state}} 表格中的那么信息--%>
+                    <button type="button" data-type="notfa" name={{d.oid}} class="weifa layui-btn  layui-btn-danger">
+                        未发货
+                    </button>
                     {{# }}}
                     {{#  if(d.state === 2){ }}
                     <span>已发货</span>
@@ -81,15 +93,16 @@
                     <span>已完成</span>
                     {{# }}}
                     {{#  if(d.state === 5 ){ }}
-                    <button type="button" class="layui-btn layui-btn-danger">退货中</button>
+                    <span>退货中</span>
                     {{#  } }}
                 </script>
+
                 <%--判断订单状态结束--%>
                 <%--右侧工具栏开始--%>
                 <table class="layui-hide" id="test" lay-filter="test"></table>
                 <script type="text/html" id="barDemo">
                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<%--                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
                 </script>
                 <%--右侧工具栏结束--%>
                 <%--批量删除开始--%>
@@ -137,18 +150,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                 <%--           <tr>
-                                <td style="width: 400px;">
-                                    <img style="width:60px;height: 60px" src="${pageContext.request.contextPath}/upload/2.JPG" alt="宝贝">
-                                    <span>烟台宝贝四大五大三的味道萨德爱我的撒多我单位</span></td>
-                                <td>600.00</td>
-                                <td>15</td>
-                                <td>600.00</td>
-                            </tr>--%>
-
                             </tbody>
                         </table>
-                        <sapn class="layui-col-md-offset10">实付款：<span id="sfk" style="color: red;font-size: 20px"></span>
+                        <sapn class="layui-col-md-offset10">实付款：<span id="sfk"
+                                                                      style="color: red;font-size: 20px"></span>
                         </sapn>
                     </div>
                 </script>
@@ -169,6 +174,9 @@
                 </script>
                 <%--弹出层内折叠面板js结束--%>
                 <script src="${pageContext.request.contextPath}/bgstatics/layui/layui.js" charset="utf-8"></script>
+                <script type="text/html" id="tbtn">
+                    <i>&#xe609;</i>
+                </script>
                 <script>
                     //页面加载完成以后,直接发送ajax请求,要到分页数据
                     $(function () {
@@ -215,29 +223,59 @@
                                 , totalRow: false,//关闭合计栏
                                 toolbar: '#crud' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
                                 , cols: [[
-                                    {type: 'checkbox', fixed: 'left', width: 80}
+                                    {type: 'checkbox', fixed: 'left', width: ""}
                                     , {field: 'oid', title: '订单编号', width: "", unresize: false, sort: true,}
-                                    , {field: 'name', title: '收货人', width: 100, sort: true,}
-                                    , {field: 'total', title: '总金额', width: 90, sort: true,}
-                                    , {
-                                        field: 'state',
-                                        title: '订单状态',
-                                        width: 100,
-                                        sort: true,
-                                        totalRow: true,
-                                        templet: "#orderState"
-                                    }//绑定订单状态判断
-                                    , {field: 'express', title: '配送方式', width: 100}
-                                    , {
-                                        field: 'ordertime',
-                                        title: '下单时间',
-                                        width: 170,
-                                        templet: "<div>{{layui.util.toDateString(d.ordertime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>"
-                                    }
-                                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: "center", width: 140}
+                                    , {field: 'name', title: '收货人', align:"center",width: "", sort: true,}
+                                    , {field: 'total', title: '总金额',align:"center", width: "", sort: true,}
+                                    , {field: 'state', title: '订单状态',align:"center", width: "", sort: true, totalRow: true, templet: "#orderState"}//绑定订单状态判断
+                                    , {field: 'express', title: '配送方式',align:"center", width: ""}
+                                    , {field: 'ordertime', title: '下单时间', width: "", templet: "<div>{{layui.util.toDateString(d.ordertime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>"}
+                                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: "center", width: 100}
                                 ]]
                                 , page: true
                             });
+
+                            //点击未发货按钮
+                            var fahuo = {
+                                notfa: function (index) {
+                                    var oid = this.name;//获取订单id
+
+                                    //触发弹出页面层
+                                    layer.open({
+                                        title: "发货信息",
+                                        type: 1,
+                                        skin: 'layui-layer-rim', //加上边框
+                                        area: ['300px', '150px'], //宽高
+                                        content: $("#fahuo").html(),
+                                        btn: ['发货', '关闭'],
+                                        yes: function () {
+                                            var express = $("#Delivery option:selected").val();//获取配送方式
+                                            $.ajax({
+                                                url: "${pageContext.request.contextPath}/order/Sipping .do/" + oid + "/" + express,
+                                                dataType: "json",
+                                                type: "PUT",
+                                                success: function (res) {
+                                                    if(res.code==200) {
+                                                        layer.msg('发货成功', {icon: 1});
+                                                        layer.closeAll('page'); //关闭所有页面层
+                                                        to_page();//从新加载表单
+                                                    }else{
+                                                        layer.msg('失败', {icon: 2});
+                                                        layer.closeAll('page'); //关闭所有页面层
+                                                    }
+                                                },
+
+                                            })
+
+                                        }
+                                    });
+                                }
+                            }
+                            //监听未发货按钮事件
+                            $('.weifa').on('click', function () {
+                                var type = $(this).data('type');
+                                fahuo[type] ? fahuo[type].call(this) : '';
+                            })
 
                             //获取表格选中行
                             var active = {
@@ -246,28 +284,28 @@
                                     var data = checkData.data;
                                     if (data.length == 0) {
                                         layer.msg("请选择删除内容")
-                                    }else {
+                                    } else {
                                         //询问框
-                                            layer.confirm('确认删除?', {icon: 3, title:'温馨提示'}, function(){
-                                                var ids = "";
-                                                for (var i = 0; i < data.length; i++) {
-                                                    ids+=data[i].oid+"-"//将选中的id组装起来
-                                                }
-                                                $.ajax({
-                                                    url: "${pageContext.request.contextPath}/order/plsc.do/"+ids,
-                                                    type: "Delete",
-                                                    dataType: "json",
-                                                    success: function (res) {
-                                                        if (res.code == 200){
-                                                            layer.msg("删除"+res.msg)
-                                                            to_page();//重载表格
-                                                        } else {
-                                                            layer.msg("删除"+res.msg)
-                                                            to_page();//重载表格
-                                                        }
+                                        layer.confirm('确认删除?', {icon: 3, title: '温馨提示'}, function () {
+                                            var ids = "";
+                                            for (var i = 0; i < data.length; i++) {
+                                                ids += data[i].oid + "-"//将选中的id组装起来
+                                            }
+                                            $.ajax({
+                                                url: "${pageContext.request.contextPath}/order/plsc.do/" + ids,
+                                                type: "Delete",
+                                                dataType: "json",
+                                                success: function (res) {
+                                                    if (res.code == 200) {
+                                                        layer.msg("删除" + res.msg)
+                                                        to_page();//重载表格
+                                                    } else {
+                                                        layer.msg("删除" + res.msg)
+                                                        to_page();//重载表格
                                                     }
-                                                })
-                                            });
+                                                }
+                                            })
+                                        });
                                     }
                                 }
                             }
@@ -282,59 +320,54 @@
                                     , layEvent = obj.event; //获得 lay-event 对应的值
                                 if (layEvent === 'detail') {
                                     //点击查看，发送请求获取数据、并显示弹出层进行数据渲染
-                                   $.get("${pageContext.request.contextPath}/order/lineitem.html/"+data.oid,function (res) {
-                                       var list1 = res.extend.list;
-                                       $(list1).each(function (index,elm) {
-                                           $("#uName").text(elm.uname) //买家昵称
-                                           $("#name").text(elm.name) //收货人
-                                           $("#telephone").text(elm.telephone) //联系电话
-                                           $("#address").text(elm.address) //收货地址
-                                           $("#express").text(elm.express) //配送方式
-                                           $("#oid").text(elm.oid) //订单编号
-                                           $("#ordertime").text(renderTime(elm.ordertime)) //成交时间
-                                          // $("#ordertime").text(elm.ordertime) //成交时间
-                                           $("#sfk").text(elm.o_total) //总价
-                                           function renderTime(date) {
-                                               var dateee = new Date(date).toJSON();
-                                               return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-                                           }
-                                           var td1={};
-                                           var td2={};
-                                           var td3={};
-                                           var td4={};
-                                           $(elm.goodsManageLis).each(function (index,gml){
-                                             td1[index]=" <td style=\"width: 400px;\">" +
-                                                 "<img style='width:60px;height: 60px' src='${pageContext.request.contextPath}/"+gml.picture+"' alt='宝贝'>" +
-                                                 "<span>"+gml.goodsName+"</span></td>";
+                                    $.get("${pageContext.request.contextPath}/order/lineitem.html/" + data.oid, function (res) {
+                                        var list1 = res.extend.list;
+                                        $(list1).each(function (index, elm) {
+                                            $("#uName").text(elm.uname) //买家昵称
+                                            $("#name").text(elm.name) //收货人
+                                            $("#telephone").text(elm.telephone) //联系电话
+                                            $("#address").text(elm.address) //收货地址
+                                            $("#express").text(elm.express) //配送方式
+                                            $("#oid").text(elm.oid) //订单编号
+                                            $("#ordertime").text(renderTime(elm.ordertime)) //成交时间
+                                            // $("#ordertime").text(elm.ordertime) //成交时间
+                                            $("#sfk").text(elm.o_total) //总价
+                                            function renderTime(date) {
+                                                var dateee = new Date(date).toJSON();
+                                                return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+                                            }
 
-                                             td2[index]="<td>"+gml.shopPrice+"</td>";//单价
-                                           })
-                                           $(elm.orderitemList).each(function (index,oil) {
-                                                td3[index]="<td>"+oil.quantity+"</td>";  //数量
-                                                td4[index]="<td>"+oil.total+"</td>";  //小计
-                                               $("<tr></tr>")
-                                                   .append(td1[index])
-                                                   .append(td2[index])
-                                                   .append(td3[index])
-                                                   .append(td4[index])
-                                                   .appendTo("#order_table tbody")
-                                           })
+                                            var td1 = {};
+                                            var td2 = {};
+                                            var td3 = {};
+                                            var td4 = {};
+                                            $(elm.goodsManageLis).each(function (index, gml) {
+                                                td1[index] = " <td style=\"width: 400px;\">" +
+                                                    "<img style='width:60px;height: 60px' src='${pageContext.request.contextPath}" + gml.picture + "' alt='宝贝'>" +
+                                                    "<span>" + gml.goodsName + "</span></td>";
 
-
-                                       })
-                                       //渲染订单详情
-
-
-
-
-                                   },'json')
+                                                td2[index] = "<td>" + gml.shopPrice + "</td>";//单价
+                                            })
+                                            $(elm.orderitemList).each(function (index, oil) {
+                                                td3[index] = "<td>" + oil.quantity + "</td>";  //数量
+                                                td4[index] = "<td>" + oil.total + "</td>";  //小计
+                                                $("<tr></tr>")
+                                                    .append(td1[index])
+                                                    .append(td2[index])
+                                                    .append(td3[index])
+                                                    .append(td4[index])
+                                                    .appendTo("#order_table tbody")
+                                            })
+                                        })
+                                        //渲染订单详情
+                                    }, 'json')
                                     //查看订单详情页面层
                                     layer.open({
                                         type: 1,
                                         title: "订单信息",//弹窗标题
                                         skin: 'layui-layer-rim', //加上边框
                                         area: ['900px', '500px'], //宽高
-                                        content:  document.getElementById("findtc").innerHTML,//内容
+                                        content: document.getElementById("findtc").innerHTML,//内容
                                         btn: ['关闭'] //可以无限个按钮
                                     });
                                 } else if (layEvent === 'del') {

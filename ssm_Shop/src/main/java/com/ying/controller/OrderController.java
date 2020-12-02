@@ -72,6 +72,7 @@ public class OrderController {
 
 
     /**
+     *
      * 查看订单详情页面
      * @param oid
      * @return
@@ -84,5 +85,24 @@ public class OrderController {
         return Msg.success().add("list",list);
 
     }
+
+    /**
+     * 发货修改订单状态
+     * @param oid
+     * @param express
+     * @return
+     */
+    @ResponseBody
+    @PutMapping("/Sipping .do/{oid}/{express}")
+    public  Msg Sipping(@PathVariable("oid")String oid,@PathVariable("express")String express){
+        boolean updState=orderService.updOrderState(oid,express);
+        if (updState) {
+            return Msg.success();
+        }else{
+            return Msg.fail();
+        }
+
+    }
+
 
 }

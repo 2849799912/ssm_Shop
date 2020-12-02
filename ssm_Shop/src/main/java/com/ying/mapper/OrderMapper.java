@@ -32,4 +32,12 @@ public interface OrderMapper {
      * @return
      */
     List<Lineitem> getLineitem(@Param("oid") String oid);
+
+    /**
+     * 发货修改订单状态
+     * @param oid
+     * @param express
+     * @return
+     */
+    int updOrderState(@Param("oid") String oid,@Param("express") String express);
 }

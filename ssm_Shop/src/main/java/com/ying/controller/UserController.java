@@ -27,6 +27,7 @@ private UserService userService;
     public String login(HttpServletRequest request, @RequestParam("username")String username, @RequestParam("password") String password){
         try {
             User login = userService.login(username, password);
+            login.setPassword("");
             if (login==null){
                 throw new RuntimeException("用户名或密码错误！");
             }
