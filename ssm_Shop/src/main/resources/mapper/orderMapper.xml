@@ -70,4 +70,9 @@
             <result property="total" column="i_total"/>
         </collection>
     </resultMap>
+
+    <!--发货功能：修改订单状态-->
+    <update id="updOrderState">
+        UPDATE `orders`  SET state=2,express=#{express} WHERE  oid=#{oid}
+    </update>
 </mapper>

@@ -45,4 +45,14 @@ public class OrderServiceImpl {
     public List<Lineitem> getLineitem(String oid) {
         return orderMapper.getLineitem(oid);
     }
+
+    /**
+     * 发货修改订单状态
+     * @param oid
+     * @param express
+     * @return
+     */
+    public boolean updOrderState(String oid, String express) {
+        return orderMapper.updOrderState(oid,express)>0?true:false;
+    }
 }
