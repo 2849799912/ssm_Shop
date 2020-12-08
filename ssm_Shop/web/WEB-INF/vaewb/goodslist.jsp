@@ -14,16 +14,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/iconfont.css">
     <script src="${pageContext.request.contextPath}/bgstatics/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/bgstatics/js/index.js"></script>
+    <script src="${pageContext.request.contextPath}/bgstatics/js/jquery-1.8.3.min.js"></script>
 
 </head>
 <body>
 <div class="x-nav">
-          <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">演示</a>
-            <a>
-              <cite>导航元素</cite></a>
-          </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 </div>
@@ -33,134 +28,116 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-                        </div>
+                <%--根据什么条件查询--%>
                     </form>
                 </div>
-                <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+                <script type="text/html" id="add_del">
+                    <div class="layui-card-header" >
+                        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
                     <button class="layui-btn" onclick="xadmin.open('添加商品','${pageContext.request.contextPath}/skip/goods-add.html')"><i class="layui-icon"></i>添加</button>
-                </div>
-                <div class="layui-card-body layui-table-body layui-table-main">
-                    <table class="layui-table layui-form">
-                        <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
-                            </th>
-                            <th>
-                                编号
-                            </th>
-                            <th>
-                                商品名称
-                            </th>
-                            <th>
-                                货号
-                            </th>
-                            <th>
-                                价格
-                            </th>
-                            <th>
-                                上架
-                            </th>
-                            <th>
-                                精品
-                            </th>
-                            <th>
-                                新品
-                            </th>
-                            <th>
-                                热销
-                            </th>
-                            <th>
-                                推荐排序
-                            </th>
-                            <th>
-                                库存
-                            </th>
-                            <th>
-                                操作
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="id" value="1"   lay-skin="primary">
-                            </td>
-                            <td>
-                                1
-                            </td>
-
-                            <td >
-                                华为P30333
-                            </td>
-                            <td >
-                                HW168
-                            </td>
-                            <td >
-                                4200
-                            </td>
-                            <td >
-                                <i class="layui-icon" style="color: #06f957">&#xe605;</i>
-                            </td>
-                            <td >
-                                <i class="layui-icon" style="color: red">&#x1006;</i>
-                            </td>
-                            <td >
-                                <i class="layui-icon" style="color: #06f957">&#xe605;</i>
-                            </td>
-                            <td >
-                                <i class="layui-icon" style="color: red">&#x1006;</i>
-                            </td>
-                            <td>
-                                2018-01-01 11:11:42
-                            </td>
-                            <td class="td-status">
-                                600
-                            </td>
-                            <td class="td-manage">
-                                <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;" title="停用">
-                                    <i class="layui-icon">&#xe601;</i>
-                                </a>
-                                <a title="编辑" href="javascript:;" onclick="xadmin.open('编辑','articletypeadd.html','800','510','1')"
-                                   class="ml-5" style="text-decoration:none">
-                                    <i class="layui-icon">&#xe642;</i>
-                                </a>
-
-                                <a title="删除" href="javascript:;" onclick="member_del(this,'1')"
-                                   style="text-decoration:none">
-                                    <i class="layui-icon">&#xe640;</i>
-                                </a>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="layui-card-body ">
-                    <div class="page">
-                        <div>
-                            <a class="prev" href="">&lt;&lt;</a>
-                            <a class="num" href="">1</a>
-                            <span class="current">2</span>
-                            <a class="num" href="">3</a>
-                            <a class="num" href="">489</a>
-                            <a class="next" href="">&gt;&gt;</a></div>
                     </div>
-                </div>
+                </script>
+                <%--表格开始--%>
+                <%--表格行高度开始--%>
+                <style type="text/css">
+                    .layui-table-cell {
+                        height: 45px;
+                        line-height: 28px;
+                    }
+                </style>
+                <%--表格行高度结束--%>
 
+                <table class="layui-hide" id="test" lay-filter="test"></table>
+                <%--判断商品状态开始--%>
+                <script type="text/html" id="pflag">
+                    {{# if(d.pflag === 1){ }}
+                    <span >仓库中...</span>
+                    {{# } else { }}
+                    <span >售卖中...</span>
+                    {{# } }}
+                </script>
+                <%--判断商品状态结束--%>
+
+                <%--判断是否是活动产品开始--%>
+                <script type="text/html" id="isHot">
+                    {{# if(d.isHot === 1){ }}
+                    <span >热门</span>
+                    {{# } else { }}
+                    <span >非热门</span>
+                    {{# } }}
+                </script>
+                <%--判断是否是活动产品结束--%>
+
+                <script>
+                    //页面加载完成以后,直接发送ajax请求,要到分页数据
+                    $(function () {
+                        to_page();
+                    })
+                    //使用ajax查询所有表单数据
+                    function to_page(){
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/goods/getGoods",
+                            type: "get",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.extend.list!= null) {
+                                    //传递参数给数据表格方法
+                                    DataTable(res.extend.list);
+                                }
+                            },
+                            error: function (data) {
+                                console.info(data);
+                            }
+                        });
+                    }
+
+                    function DataTable(list) {
+                        layui.use('table', function () {
+                            var table = layui.table;
+                            table.render({
+                                elem: '#test'
+                                //使用layui数据表格的data属性将Ajax调用的后台数据绑定
+                                , data: list
+                                , toolbar:"#add_del"
+                                , title: '用户数据表'
+                                , cols: [[
+                                    {type: 'checkbox', fixed: 'left', width: 80}
+                                    , {field: 'goodsName',title: '商品名称',width: 150,sort: true,}
+                                    , {field: 'picture',title: '商品',width: 90,height:250,sort: true,templet: function(d){return '<div onclick="" ><img src="'+d.picture+'" alt="" width="50px" height="50px"></a></div>';}}
+                                    , {field: 'sortName',title: '所属分类',width: 100,sort: true,align:"center"}
+                                    , {field: 'shopPrice', title: '本店价格', width: 100,  sort: true}
+                                    , {field: 'repertory', title: '库存', width: 80, sort: true,align:"center"}
+                                    , {field: 'sales', title: '销量',width: 80,align:"center"}
+                                    , {field: 'borwse', title: '浏览量',width: 80,align:"center"}
+                                    ,{field: 'pflag', title: '状态',width: 80,align:"center",toolbar: '#pflag'}
+                                    , {field: 'isHot',title: '活动产品',width: 80,align:"center" ,toolbar: '#isHot'}
+                                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 164}
+                                ]]
+                                , page: true
+                            });
+
+                            //工具栏事件
+                            table.on('toolbar(test)', function (obj) {
+                                var checkStatus = table.checkStatus(obj.config.id);
+                                switch (obj.event) {
+                                    case 'getCheckData':
+                                        var data = checkStatus.data;
+                                        layer.alert(JSON.stringify(data));
+                                        break;
+                                    case 'getCheckLength':
+                                        var data = checkStatus.data;
+                                        layer.msg('选中了：' + data.length + ' 个');
+                                        break;
+                                    case 'isAll':
+                                        layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                                        break;
+                                }
+                                ;
+                            });
+                        });
+                    }
+                </script>
+                <%--表格结束--%>
             </div>
         </div>
     </div>

@@ -12,7 +12,33 @@
         (#{cid},#{goodsName},#{picture},#{describe},#{marketPrice},#{shopPrice},#{repertory},#{addDate},#{isHot},#{pflag})
     </insert>
     
-    
-    
+    <!--查询所有商品-->
+    <select id="getGoods" resultMap="getGooods_category">
+        SELECT g.*,c.sort_name
+        FROM `goods_manage` g,`category` c
+        WHERE g.`cid`=c.cid
+    </select>
+    <!--查询所有商品resultMap-->
+    <resultMap id="getGooods_category" type="com.ying.pojo.GoodsManage">
+        <id property="gid" column="gid"/>
+        <!--商品名称-->
+        <result property="goodsName" column="goods_name"/>
+        <!--商品主图-->
+        <result property="picture" column="picture"/>
+        <!--本店价格-->
+        <result property="shopPrice" column="shop_price"/>
+        <!--库存-->
+        <result property="repertory" column="repertory"/>
+        <!--销量-->
+        <result property="sales" column="sales"/>
+        <!--浏览量-->
+        <result property="borwse" column="borwse"/>
+        <!--状态：上下架-->
+        <result property="pflag" column="pflag"/>
+        <!--是否热门-->
+        <result property="isHot" column="is_hot"/>
+        <!--分类名称-->
+        <result property="sortName" column="sort_name"/>
+    </resultMap>
 
 </mapper>

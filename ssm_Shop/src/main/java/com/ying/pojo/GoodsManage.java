@@ -39,6 +39,8 @@ public class GoodsManage {
   private Integer isHot;
   //0:未下架;1:已下架
   private Integer pflag;
+  //分类名
+  private String sortName;
 
 
 }

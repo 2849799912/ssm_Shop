@@ -181,10 +181,7 @@
                         <%--存放oss返回的图片地址--%>
                     </div>
                     <%--商品主图回显结束--%>
-                    <%--返回url存放--%>
-                    <div class="layui-hide" id="tpurl">
-                    </div>
-                    <%--商品描述图上传开始--%>
+                   <%--商品描述图上传开始--%>
                     <div class="layui-form-item">
                         <label for="link" class="layui-form-label">
                             <span class="x-red">*</span>商品描述图
@@ -207,6 +204,8 @@
                         <img src="" id="describe" style="width: 200px;height: 500px;"/>
                     </div>
                     <%--商品描述图回显结束--%>
+                    <%--加载图标--%>
+                    <i id="iconjz" style="font-size: 50px;position:absolute; left:50%; top:210%;" class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop"></i>
                     <div class="layui-form-item">
                         <button class="layui-btn" type="button" lay-filter="add" lay-submit="" id="commit">
                             保存
@@ -240,6 +239,7 @@
 
         //监听提交
         form.on('submit(add)', function(data){
+
             var title=$("input[name='goodsName']").val();//商品标题
             var titlez=/^(.){8,28}$/ //商品标题正则
             var titlepp = titlez.test(title);//商品标题正则
@@ -282,11 +282,13 @@
             if(describe==""){
                 layer.msg('请上传描述图',{icon:5,time:2000});return false;
             }
-
+            //提交按钮禁用
+            $("#commit").addClass("layui-btn layui-btn-disabled");
+            //显示加载图标
+            $("#iconjz").show()
             //循环两张图
             $("input[type=file]").each(function(){
                 imgUpload("${pageContext.request.contextPath}/goods","/uploadImg",this);
-
             });
                 //提交表单中的数据
                 var form = new FormData(document.getElementById("add2")); //获取表单
@@ -299,6 +301,8 @@
                     contentType:false,
                     dataType:"text",
                     success:function(data){
+                        //成功后隐藏加载图标
+                        $("#iconjz").hide()
                         var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
                         parent.layer.close(index);		//关闭窗口
                     },
@@ -336,6 +340,9 @@
 </script>
 <!--栏目缩略图上传-->
 <script>
+    $(function () {
+        $("#iconjz").hide()//加载时候隐藏加载图标
+    })
     /*主图图片上传回显*/
     $(document).on("change","#zhutu",function () {
         for(var i = 0; i < this.files.length; i ++){

@@ -29,4 +29,9 @@ public interface GoodsMapper {
      * @return
      */
     int addGoods(GoodsManage goodsManage);
+    /**
+     * 后台：查询所有商品
+     * @return
+     */
+    List<GoodsManage> getGoods();
 }

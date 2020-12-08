@@ -97,11 +97,12 @@
                 </script>
 
                 <%--判断订单状态结束--%>
+
                 <%--右侧工具栏开始--%>
                 <table class="layui-hide" id="test" lay-filter="test"></table>
                 <script type="text/html" id="barDemo">
                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-<%--                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
+<%--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>--%>
                 </script>
                 <%--右侧工具栏结束--%>
                 <%--批量删除开始--%>

@@ -17,4 +17,6 @@ public class Loading {
   private String review;
   //评论时间
   private Date createdate;
+  //商品id
+  private int gid;
 }

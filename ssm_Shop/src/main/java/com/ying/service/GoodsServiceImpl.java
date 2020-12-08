@@ -41,4 +41,12 @@ public class GoodsServiceImpl {
     public boolean addGoods(GoodsManage goodsManage) {
         return goodsMapper.addGoods(goodsManage)>0?true:false;
     }
+
+    /**
+     * 后台：查询所有商品
+     * @return
+     */
+    public List<GoodsManage> getGoods() {
+        return goodsMapper.getGoods();
+    }
 }

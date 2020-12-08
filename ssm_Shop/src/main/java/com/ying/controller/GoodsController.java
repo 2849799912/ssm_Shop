@@ -9,10 +9,7 @@ import com.ying.utiles.OssUtile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -113,6 +110,16 @@ public class GoodsController {
        }
     }
 
+    /**
+     * 查询所有商品
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/getGoods")
+    public Msg getGoods(){
+        List<GoodsManage> list=goodsService.getGoods();
+        return Msg.success().add("list",list);
+    }
 
 
 
