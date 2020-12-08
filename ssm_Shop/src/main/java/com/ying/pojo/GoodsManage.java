@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,9 +34,11 @@ public class GoodsManage {
   //评论量
   private Integer lId;
   //添加时间
-  private java.sql.Timestamp addDate;
-  //1倒时商品、0不倒计商品
+  private Date addDate;
+  //1热门,0不热门
   private Integer isHot;
   //0:未下架;1:已下架
   private Integer pflag;
+
+
 }

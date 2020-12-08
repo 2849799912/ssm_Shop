@@ -22,83 +22,141 @@ public class SkipController {
     @Autowired
     SkipServiceImpl skipService;
     /*---------------------------前台---------------------------------------------*/
-   /*跳转到前台首页:index.jsp*/
+
+    /**
+     * 跳转到前台首页:index.jsp
+     * @return
+     */
     @RequestMapping("index.html")
     public String st(){
         return "jsp/index";
     }
 
-    /*跳转到前台注册页面:register.jsp*/
+    /**
+     * 跳转到前台注册页面:register.jsp
+     * @return
+     */
     @RequestMapping("/register.html")
     public String register(){
         return "jsp/register";
     }
 
-    /*跳转到前台登录页面:login.jsp*/
+    /**
+     * 跳转到前台登录页面:login.jsp
+     * @return
+     */
     @RequestMapping("/login.html")
     public String Login(){ return "jsp/login"; }
 
-    /*跳转到前台,我的账户页面:my-account.jsp*/
+    /**
+     * 跳转到前台,我的账户页面:my-account.jsp
+     * @return
+     */
     @RequestMapping("/my-account.html")
     public String account(){ return "jsp/my-account"; }
 
-    /*跳转到前台,常见问题页面:frequently-questions.jsp*/
+    /**
+     * 跳转到前台,常见问题页面:frequently-questions.jsp
+     * @return
+     */
     @RequestMapping("/frequently-questions.html")
     public String question(){ return "jsp/frequently-questions"; }
 
-    /*跳转到前台,关于我们页面:about-us.jsp*/
+    /**
+     * 跳转到前台,关于我们页面:about-us.jsp
+     * @return
+     */
     @RequestMapping("/about-us.html")
     public String about(){return "jsp/about-us";}
 
-    /*跳转到前台,联系方式页面:contact-us.jsp*/
+    /**
+     * 跳转到前台,联系方式页面:contact-us.jsp
+     * @return
+     */
     @RequestMapping("/contact-us.html")
     public String contact(){return "jsp/contact-us";}
 
-    /*跳转到前台,商店对侧边栏页面:shop-right-sidebar.jsp*/
+    /**
+     * 跳转到前台,商店对侧边栏页面:shop-right-sidebar.jsp
+     * @return
+     */
     @RequestMapping("/shop-right-sidebar.html")
     public String sidebar(){return "jsp/shop-right-sidebar";}
 
-    /*跳转到前台,商店列表左侧侧边栏页面:shop-list-left.jsp*/
+    /**
+     * 跳转到前台,商店列表左侧侧边栏页面:shop-list-left.jsp
+     * @return
+     */
     @RequestMapping("shop-list-left.html")
     public String left(){return "jsp/shop-list-left";}
 
-    /*跳转到前台,商店列表右侧侧边栏页面:shop-list-right.jsp*/
+    /**
+     * 跳转到前台,商店列表右侧侧边栏页面:shop-list-right.jsp
+     * @return
+     */
     @RequestMapping("/shop-list-right.html")
     public String right(){return "jsp/shop-list-right";}
 
-    /*跳转到前台,商店全宽页面:shop-fullwidth.jsp*/
+    /**
+     * 跳转到前台,商店全宽页面:shop-fullwidth.jsp
+     * @return
+     */
     @RequestMapping("/shop-fullwidth.html")
     public String fullwidth(){return "jsp/shop-fullwidth";}
 
-    /*跳转到前台,购买页面:variable-product-details.jsp*/
+    /**
+     * 跳转到前台,购买页面:variable-product-details.jsp
+     * @return
+     */
     @RequestMapping("/variable-product-details.html")
     public String product(){return "jsp/variable-product-details";}
 
-    /*跳转到前台,外积页面*/
+    /**
+     * 跳转到前台,外积页面
+     * @return
+     */
     @RequestMapping("/external-product-details.html")
     public String details(){ return "jsp/external-product-details";}
 
-    /*跳转到前台,画廊的产品页面*/
+    /**
+     * 跳转到前台,画廊的产品页面
+     * @return
+     */
     @RequestMapping("/gallery-product-details.html")
     public String gallery(){ return "jsp/gallery-product-details";}
 
-    /*跳转到前台,倒计时的产品页面*/
+    /**
+     * 跳转到前台,倒计时的产品页面
+     * @return
+     */
     @RequestMapping("/countdown-product-details.html")
     public String countdown(){ return "jsp/countdown-product-details";}
 
-    /*跳转到前台,比较页面*/
+    /**
+     * 跳转到前台,比较页面
+     * @return
+     */
     @RequestMapping(" /compare.html")
     public String compare(){ return "jsp/compare";}
 
-    /*跳转到前台,购物车页面*/
+    /**
+     * 跳转到前台,购物车页面
+     * @return
+     */
     @RequestMapping("/cart.html")
     public String cart(){ return "jsp/cart";}
 
-    /*跳转到前台,结算页面*/
+    /**
+     * 跳转到前台,结算页面
+     * @return
+     */
     @RequestMapping("/checkout.html")
     public String checkout(){ return "jsp/checkout";}
 
-    /*跳转到前台,愿望列表页面*/
+    /**
+     * 跳转到前台,愿望列表页面
+     * @return
+     */
     @RequestMapping("wishlist.html")
     public String wishlist(){ return "jsp/wishlist";}
 
@@ -110,7 +168,12 @@ public class SkipController {
 
 
 /*---------------------------后台---------------------------------------------*/
-    /*跳转到后台首页：index.jsp*/
+
+    /**
+     * 跳转到后台首页：index.jsp
+     * @param request
+     * @return
+     */
     @RequestMapping("/index")
     public  String index(HttpServletRequest request){
          //获取用户登录信息
@@ -122,7 +185,11 @@ public class SkipController {
         return "vaewb/index";
     }
 
-    /*跳转到后台首页：我的桌面*/
+    /**
+     * 跳转到后台首页：我的桌面
+     * @param model
+     * @return
+     */
     @RequestMapping("/welcome")
     public  String welcome(Model model){
         //成交金额
@@ -171,22 +238,38 @@ public class SkipController {
     }
 
     /*******************************商品管理***********************/
-    /*跳转到后台首页：商品列表*/
+    /**
+     * 跳转到后台首页：商品列表
+     * @return
+     */
     @RequestMapping("/goodslist")
     public  String goodslist(){
         return "vaewb/goodslist";
     }
 
+    /**
+     * 添加商品
+     * @return
+     */
+    @RequestMapping("/goods-add.html")
+    public String goods_add(){
+        return "vaewb/goods-add";
+    }
 
-    /*跳转到后台首页：商品品牌*/
+    /**
+     * 跳转到后台首页：商品品牌
+     * @return
+     */
     @RequestMapping("/brand")
     public  String brand(){
         return "vaewb/brand";
     }
 
 
-
-    /*跳转到后台首页：商品类型*/
+    /**
+     * 跳转到后台首页：商品类型
+     * @return
+     */
     @RequestMapping("/commodity-type")
     public  String commodity_type(){
         return "vaewb/commodity-type";
@@ -195,13 +278,19 @@ public class SkipController {
 
 
     /*******************************促销管理***********************/
-    /*跳转到后台首页：团购活动*/
+    /**
+     * 跳转到后台首页：团购活动
+     * @return
+     */
     @RequestMapping("/group-buying")
     public  String group_buying(){
         return "vaewb/group-buying";
     }
 
-    /*跳转到后台首页：优惠列表*/
+    /**
+     * 跳转到后台首页：优惠列表
+     * @return
+     */
     @RequestMapping("/discount-list")
     public  String discount_list(){
         return "vaewb/discount-list";
@@ -209,7 +298,10 @@ public class SkipController {
 
 
     /*******************************订单管理***********************/
-    /*跳转到后台首页：订单列表*/
+    /**
+     * 跳转到后台首页：订单列表
+     * @return
+     */
     @RequestMapping("/order-list")
     public  String order_list(){
         return "vaewb/order-list";
@@ -220,12 +312,20 @@ public class SkipController {
 
 
 /************************退出到登录****************************/
-/*跳转到后台：登录*/
+    /**
+     * 跳转到后台：登录
+     * @return
+     */
     @RequestMapping("/login")
     public  String login(){
         return "vaewb/login";
     }
-    /*个人信息*/
+
+    /**
+     * 个人信息
+     * @param request
+     * @return
+     */
     @RequestMapping("/one_set")
     public  String one_set(HttpServletRequest request){
         return "vaewb/one_set";

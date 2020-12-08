@@ -1,17 +1,19 @@
-
-　<%@ page language="java" import="java.util.*,java.text.*" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" import="java.util.*,java.text.*" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>文章类型列表</title>
-    <meta name="renderer" content="webkit">
+    <title>文章类型·列表</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="stylesheet" href="../../bgstatics/css/font.css">
-    <link rel="stylesheet" href="../../bgstatics/css/index.css">
-    <script src="../../bgstatics/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="../../bgstatics/js"></script>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <%--    <link rel="stylesheet" href="/bgstatics/css/font.css">--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/font.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bgstatics/css/iconfont.css">
+    <script src="${pageContext.request.contextPath}/bgstatics/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/bgstatics/js/index.js"></script>
 
 </head>
 <body>
@@ -47,7 +49,7 @@
                 </div>
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加商品','./goods-add.html')"><i class="layui-icon"></i>添加</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加商品','${pageContext.request.contextPath}/skip/goods-add.html')"><i class="layui-icon"></i>添加</button>
                 </div>
                 <div class="layui-card-body layui-table-body layui-table-main">
                     <table class="layui-table layui-form">
@@ -101,7 +103,7 @@
                             </td>
 
                             <td >
-                                华为P30
+                                华为P30333
                             </td>
                             <td >
                                 HW168

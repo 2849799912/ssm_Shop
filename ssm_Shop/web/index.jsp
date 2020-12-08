@@ -6,5 +6,6 @@
 </head>
 <body>
 <jsp:forward page="/skip/index.html"></jsp:forward>
+
 </body>
 </html>

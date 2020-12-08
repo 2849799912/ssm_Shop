@@ -15,17 +15,30 @@ import java.util.List;
 public class GoodsServiceImpl {
     @Autowired
     GoodsMapper goodsMapper;
-    /*
-    *查询所有商品信息
-    * */
+
+    /**
+     * 查询所有商品信息
+     * @return
+     */
     public List<GoodsManage> getGoodsAll() {
         return goodsMapper.getGoodsAll();
     }
-    /*
-    * 根据人气，价格排序
-    * */
+
+    /**
+     * 根据人气，价格排序
+     * @param select
+     * @return
+     */
     public List<GoodsManage> getSort(Integer select) {
         return goodsMapper.getSort(select);
     }
 
+    /**
+     * 添加商品
+     * @param goodsManage
+     * @return
+     */
+    public boolean addGoods(GoodsManage goodsManage) {
+        return goodsMapper.addGoods(goodsManage)>0?true:false;
+    }
 }

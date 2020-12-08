@@ -1,21 +1,15 @@
 package com.ying.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.ying.pojo.Lineitem;
 import com.ying.pojo.Orders;
 import com.ying.service.OrderServiceImpl;
-import com.ying.utiles.CustomDateSerializer;
 import com.ying.utiles.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,7 +73,6 @@ public class OrderController {
      */
     @ResponseBody
     @GetMapping("/lineitem.html/{oid}")
-    @JsonSerialize(using = CustomDateSerializer.class)
     public  Msg lineitem(@PathVariable("oid")String oid){
         List<Lineitem> list=orderService.getLineitem(oid);
         return Msg.success().add("list",list);

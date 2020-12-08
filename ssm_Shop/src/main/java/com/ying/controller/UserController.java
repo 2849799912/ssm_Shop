@@ -44,7 +44,7 @@ private UserService userService;
     @RequestMapping("/updUser")
     @ResponseBody
     public String upload(@RequestParam(value = "file",required = false) MultipartFile file
-            , HttpServletRequest request, User user,HttpServletResponse response) {
+            , HttpServletRequest request, User user) {
         //上传路径保存设置
         String path = request.getSession().getServletContext().getRealPath("/upload");//文件存储路径
         File realPath = new File(path);
