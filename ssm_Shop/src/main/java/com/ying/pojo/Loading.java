@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,9 +13,8 @@ import lombok.NoArgsConstructor;
 public class Loading {
   //评论编号
   private Integer lId;
-  //评论人
-  private String uName;
-  //评论类型 1好、2中、3差
-  private Integer reviewType;
-
+  //内容
+  private String review;
+  //评论时间
+  private Date createdate;
 }

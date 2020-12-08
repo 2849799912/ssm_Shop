@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 封装订单信息类
  * @author hjt
  * @create 2020-11-30 12:00
  */

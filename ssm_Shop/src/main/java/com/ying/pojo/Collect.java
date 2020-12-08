@@ -17,4 +17,7 @@ public class Collect {
   private String uid;
   //收藏时间
   private Date collectTime;
+  //商品id
+  private int gid;
+
 }

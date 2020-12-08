@@ -18,7 +18,5 @@ public class Orderitem {
   private Integer did;
   //所属订单
   private String oid;
-  //0已删除1未删除
-  private int del;
 
 }

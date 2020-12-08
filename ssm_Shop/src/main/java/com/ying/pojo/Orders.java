@@ -30,8 +30,10 @@ public class Orders {
   private  String name;
   //物流方式
   private String express;
-  //0已删除1未删除
-  private int del;
+  //管理0已删除1未删除
+  private int manage_del;
+  //用户0已删除1未删除
+  private int user_del;
   //订单里多个订单项
   private List<Orderitem> orderitemList;
   //订单所属用户
